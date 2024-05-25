@@ -25,13 +25,10 @@ public class Game {
     }
 
     public boolean gameOver() {
-        boolean sameRow;
-        boolean sameColumn = false;
         for (int i = 0; i < gameboard.getGameboard().length; i++) {
             for (int j = 0; j < gameboard.getGameboard().length; j++) {
-                sameRow = j == 0 ? true : false;
-                if (sameRow && gameboard.getGameboard()[i][j] == 'X' && gameboard.getGameboard()[i][j+1] == 'X' && gameboard.getGameboard()[i][j+2] == 'X') {
-                    System.out.println("Game over!");
+                if (checkRow(i, j)) {
+                    System.out.println(player.getStartingValue() + "wins");
                     return true;
                 }
             }
@@ -39,12 +36,23 @@ public class Game {
         return gameOver;
     }
 
+    public boolean checkRow(int i, int j) {
+        if (j != 0) {
+            return false;
+        }
+        if (gameboard.getGameboard()[i][j] == player.getStartingValue()
+                && gameboard.getGameboard()[i][j + 1] == player.getStartingValue()
+                && gameboard.getGameboard()[i][j + 2] == player.getStartingValue()) {
+            return true;
+        }
+        return false;
+    }
 
     private boolean validCoordinates() {
         if (ui.getCoordinates() == null) return false;
         try {
-            int vert = Integer.parseInt(String.valueOf(ui.getCoordinates().charAt(0)))-1;
-            int horiz = Integer.parseInt(String.valueOf((ui.getCoordinates().charAt(2))))-1;
+            int vert = Integer.parseInt(String.valueOf(ui.getCoordinates().charAt(0))) - 1;
+            int horiz = Integer.parseInt(String.valueOf((ui.getCoordinates().charAt(2)))) - 1;
             if (vert > 2) {
                 ui.indexTooLarge();
                 return false;

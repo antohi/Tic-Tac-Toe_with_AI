@@ -33,4 +33,8 @@ public class Player {
     public int getNumOfMoves() {
         return numOfMoves;
     }
+
+    public char getStartingValue() {
+        return startingValue;
+    }
 }
